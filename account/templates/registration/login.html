@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %} Авторизация {% endblock %}
+{% block content %}
+<h1>Авторизация</h1>
+{% if form.errors %}
+<p>
+  Ваш логин или пароль неверны.
+  Пожалуйста повторите попытку.
+</p>
+{% else %}
+<p>Пожалуйста,используйте форму для авторизации:
+  Если вы не имеете аккаунта, создайте <a href="{% url 'register' %}">здесь</a>
+</p>
+{% endif %}
+<div class="login-form">
+  <form action="{% url 'login' %}" method="post">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <input type="hidden" name="далее" value="{{ далее }}"/>
+    <p><input type="submit" value="Войти"></p>
+  </form>
+  <p>
+    <a href="{% url 'password_reset' %}">Забыли ваш пароль?</a>
+  </p>
+</div>
+<div class="social">
+  <ul>
+    <li class="facebook">
+      <a href="{% url 'social:begin' 'facebook' %}">Продолжить с помощью Facebook</a>
+    </li>
+  </ul>
+</div>
+{% endblock %}
